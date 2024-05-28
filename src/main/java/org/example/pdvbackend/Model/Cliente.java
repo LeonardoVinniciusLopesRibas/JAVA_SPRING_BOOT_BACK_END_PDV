@@ -35,11 +35,11 @@ public class Cliente {
     private String razao_social;
 
     @CPF(message = "CPF inválido")
-    @Column(name = "cpf", length = 11)
+    @Column(name = "cpf", length = 11, unique = true)
     private String cpf;
 
     @CNPJ(message = "CNPJ inválido")
-    @Column(name = "cnpj", length = 14)
+    @Column(name = "cnpj", length = 14, unique = true)
     private String cnpj;
 
     @NotNull(message = "CEP é obrigatório")

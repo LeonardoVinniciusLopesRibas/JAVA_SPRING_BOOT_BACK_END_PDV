@@ -59,7 +59,7 @@ public class Produto {
     @NotNull(message = "CÓDIGO INTERNO é obrigatório")
     @NotBlank(message = "CÓDIGO INTERNO não pode estar em branco")
     @Size(min = 1, max = 100, message = "CÓDIGO INTERNO deve ter entre 1 e 100 caracteres")
-    @Column(name = "codigo_interno", length = 100)
+    @Column(name = "codigo_interno", length = 100, unique = true)
     private String codigo_interno;
 
     @NotNull(message = "DATA DE CADASTRO é obrigatório")
