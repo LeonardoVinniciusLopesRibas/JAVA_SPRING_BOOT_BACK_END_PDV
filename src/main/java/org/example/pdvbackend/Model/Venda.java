@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.example.pdvbackend.Enum.StatusEnum;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -28,6 +27,9 @@ public class Venda {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
+    @NotBlank(message = "Observação não pode conter caracteres especiais")
+    private String observacao;
+    
     @NotNull(message = "DATA DE VENDA é obrigatório")
     @Column(name = "data_venda")
     private LocalDate data_venda;
@@ -37,30 +39,7 @@ public class Venda {
     @Column(name = "total")
     private double total;
 
-    @NotNull(message = "DESCONTO é obrigatório")
-    @DecimalMin(value = "0.0", message = "DESCONTO deve ser no mínimo 0.0")
-    @Column(name = "desconto")
-    private double desconto;
-
-    @NotNull(message = "STATUS é obrigatório")
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status")
-    private StatusEnum status;
-
     @OneToMany(mappedBy = "venda", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemVenda> itens;
 
-    @NotNull(message = "DATA DE CADASTRO é obrigatório")
-    @Column(name = "data_cadastro")
-    private LocalDate data_cadastro;
-
-    @NotNull(message = "DATA DE ALTERAÇÃO é obrigatório")
-    @Column(name = "data_alteracao")
-    private LocalDate data_alteracao;
-
-    @PrePersist
-    @PreUpdate
-    private void calculateTotal() {
-        total = itens.stream().mapToDouble(ItemVenda::getTotal).sum() - desconto;
-    }
 }

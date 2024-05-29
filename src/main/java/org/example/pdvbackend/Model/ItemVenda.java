@@ -39,19 +39,14 @@ public class ItemVenda {
     @Column(name = "preco_unitario")
     private double preco_unitario;
 
-    @NotNull(message = "DESCONTO é obrigatório")
-    @DecimalMin(value = "0.0", message = "DESCONTO deve ser no mínimo 0.0")
-    @Column(name = "desconto")
-    private double desconto;
+    @NotNull(message = "PREÇO TOTAL é obrigatório")
+    @DecimalMin(value = "0.0", message = "PREÇO TOTAL deve ser no mínimo 0.0")
+    @Column(name = "preco_total")
+    private double preco_total;
 
     @NotNull(message = "TOTAL é obrigatório")
     @DecimalMin(value = "0.0", message = "TOTAL deve ser no mínimo 0.0")
     @Column(name = "total")
     private double total;
 
-    @PrePersist
-    @PreUpdate
-    private void calculateTotal() {
-        total = (quantidade * preco_unitario) - desconto;
-    }
 }

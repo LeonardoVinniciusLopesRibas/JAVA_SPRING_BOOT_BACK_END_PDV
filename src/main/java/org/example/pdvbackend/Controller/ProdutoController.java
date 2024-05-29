@@ -1,5 +1,7 @@
 package org.example.pdvbackend.Controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.apache.coyote.Response;
 import org.example.pdvbackend.Model.Produto;
@@ -16,36 +18,25 @@ import java.util.List;
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/pdv/produto")
+@Tag(name = "Produto", description = "APIs relacionadas a Produto")
 public class ProdutoController {
 
     @Autowired
     private ProdutoService produtoService;
 
-    @GetMapping("/get/ativos")
-    public ResponseEntity<List<Produto>> getByAtivoTrue(){
-        return ResponseEntity.ok(produtoService.getByAtivoTrue());
-    }
-
-    @GetMapping("/get/desativos")
-    public ResponseEntity<List<Produto>> getByAtivoFalse(){
-        return ResponseEntity.ok(produtoService.getByAtivoFalse());
-    }
-
+    @Operation(summary = "Obter todos os produtos", description = "Retorna uma lista de todos os produtos")
     @GetMapping("/get/tudo")
     public ResponseEntity<List<Produto>> getTudo(){
         return ResponseEntity.ok(produtoService.getTudo());
     }
 
-    @GetMapping("/get/{codigointerno}")
-    public ResponseEntity<Produto> getByCodigoInterno(@PathVariable String codigointerno){
-        return ResponseEntity.ok(produtoService.getByCodigoInterno(codigointerno));
-    }
-
+    @Operation(summary = "Obter produto por ID", description = "Retorna um produto específico pelo ID")
     @GetMapping("/get/{id}")
     public ResponseEntity<Produto> getById(@PathVariable Long id){
         return ResponseEntity.ok(produtoService.getById(id));
     }
 
+    @Operation(summary = "Criar novo produto", description = "Cria um novo produto e retorna o produto criado")
     @PostMapping("/post")
     public ResponseEntity<Produto> post(@RequestBody @Valid Produto produto, UriComponentsBuilder builder){
         produtoService.post(produto);
@@ -53,21 +44,10 @@ public class ProdutoController {
         return ResponseEntity.created(uri).body(produto);
     }
 
+    @Operation(summary = "Atualizar produto", description = "Atualiza as informações de um produto existente")
     @PutMapping("/put/{id}")
     public ResponseEntity<Produto> put(@PathVariable Long id, @RequestBody @Valid Produto produto){
         produtoService.put(produto);
-        return ResponseEntity.ok(produto);
-    }
-
-    @PutMapping("put/ativo/{id}/true")
-    public ResponseEntity<Produto> putAtivoTrue(@PathVariable Long id){
-        Produto produto = produtoService.putAtivo(id, true);
-        return ResponseEntity.ok(produto);
-    }
-
-    @PutMapping("put/ativo/{id}/false")
-    public ResponseEntity<Produto> putAtivoFalse(@PathVariable Long id){
-        Produto produto = produtoService.putAtivo(id, false);
         return ResponseEntity.ok(produto);
     }
 

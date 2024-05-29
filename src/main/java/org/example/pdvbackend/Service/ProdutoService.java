@@ -14,19 +14,8 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository produtoRepository;
 
-    public List<Produto> getByAtivoTrue(){
-        return produtoRepository.findByAtivoTrue();
-    }
-    public List<Produto> getByAtivoFalse(){
-        return produtoRepository.findByAtivoFalse();
-    }
-
     public List<Produto> getTudo() {
         return produtoRepository.findAll();
-    }
-
-    public Produto getByCodigoInterno(String codigointerno) {
-        return produtoRepository.findByCodigoInterno(codigointerno);
     }
 
     public Produto getById(Long id) {
@@ -43,10 +32,4 @@ public class ProdutoService {
         return produtoRepository.save(produto);
     }
 
-    public Produto putAtivo(Long id, boolean b) {
-        Optional<Produto> optionalProduto = produtoRepository.findById(id);
-        Produto produto = optionalProduto.get();
-        produto.setAtivo(b);
-        return produtoRepository.save(produto);
-    }
 }
