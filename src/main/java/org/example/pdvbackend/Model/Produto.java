@@ -33,7 +33,8 @@ public class Produto {
     private double valor_unitario;
 
     @Column(name = "categoria", length = 100)
-    @NotBlank(message = "Categoria não pode estar em branco")
+    @NotBlank(message = "CATEGORIA não pode estar em branco")
+    @NotNull(message = "CATEGORIA é obrigatória")
     private String categoria;
 
 
