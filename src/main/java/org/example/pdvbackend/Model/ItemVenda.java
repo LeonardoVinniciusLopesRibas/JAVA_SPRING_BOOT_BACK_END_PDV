@@ -44,9 +44,5 @@ public class ItemVenda {
     @Column(name = "preco_total")
     private double preco_total;
 
-    @NotNull(message = "TOTAL é obrigatório")
-    @DecimalMin(value = "0.0", message = "TOTAL deve ser no mínimo 0.0")
-    @Column(name = "total")
-    private double total;
 
 }
