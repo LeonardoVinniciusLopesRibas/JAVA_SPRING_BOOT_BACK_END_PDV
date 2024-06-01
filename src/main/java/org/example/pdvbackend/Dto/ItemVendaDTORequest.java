@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ItemVendaDTO {
+public class ItemVendaDTORequest {
 
     @NotNull(message = "ID do produto é obrigatório")
     private Long id;
