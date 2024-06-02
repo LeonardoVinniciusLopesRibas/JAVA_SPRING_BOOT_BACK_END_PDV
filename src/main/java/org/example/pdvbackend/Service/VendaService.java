@@ -1,5 +1,7 @@
 package org.example.pdvbackend.Service;
 
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import org.example.pdvbackend.Model.Cliente;
 import org.example.pdvbackend.Model.Venda;
 import org.example.pdvbackend.Repository.ClienteRepository;
@@ -14,6 +16,9 @@ public class VendaService {
     @Autowired
     private VendaRepository vendaRepository;
 
+    @Autowired
+    private EntityManager entityManager;
+
     public java.util.List<Venda> getTudo() {
         return vendaRepository.findAll();
     }
@@ -23,6 +28,7 @@ public class VendaService {
         return optionalVenda.orElse(null);
     }
 
+    @Transactional
     public Venda post(Venda venda){
         vendaRepository.save(venda);
         return venda;

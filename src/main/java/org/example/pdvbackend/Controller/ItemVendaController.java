@@ -3,6 +3,7 @@ package org.example.pdvbackend.Controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.example.pdvbackend.Dto.ItemVendaDTORequestBanco;
 import org.example.pdvbackend.Model.ItemVenda;
 import org.example.pdvbackend.Service.ItemVendaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,8 @@ public class ItemVendaController {
 
     @Operation(summary = "Criar novo item de venda", description = "Cria um novo item de venda e retorna o item criado")
     @PostMapping("/post")
-    public ResponseEntity<ItemVenda> post(@RequestBody @Valid ItemVenda itemVenda, UriComponentsBuilder builder){
-        itemVendaService.post(itemVenda);
+    public ResponseEntity<ItemVenda> post(@RequestBody @Valid ItemVendaDTORequestBanco itemVendaDto, UriComponentsBuilder builder){
+        ItemVenda itemVenda = itemVendaService.post(itemVendaDto);
         URI uri = builder.path("/pdv/itemvenda/get/{id}").buildAndExpand(itemVenda.getId()).toUri();
         return ResponseEntity.created(uri).body(itemVenda);
     }
