@@ -3,6 +3,7 @@ package org.example.pdvbackend.Service;
 import org.example.pdvbackend.Model.Produto;
 import org.example.pdvbackend.Repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +16,9 @@ public class ProdutoService {
     private ProdutoRepository produtoRepository;
 
     public List<Produto> getTudo() {
-        return produtoRepository.findAll();
+        Sort sort = Sort.by(Sort.Direction.DESC, "descricao");
+        return produtoRepository.findAll(sort);
+
     }
 
     public Produto getById(Long id) {

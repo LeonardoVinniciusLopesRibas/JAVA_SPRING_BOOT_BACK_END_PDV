@@ -28,7 +28,6 @@ public class Venda {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    @NotBlank(message = "Observação não pode conter caracteres especiais")
     private String observacao;
 
     @NotNull(message = "DATA DE VENDA é obrigatório")
