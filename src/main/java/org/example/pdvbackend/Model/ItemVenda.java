@@ -19,10 +19,10 @@ public class ItemVenda {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "VENDA é obrigatório")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "venda_id")
     private Venda venda;
+
 
     @NotNull(message = "PRODUTO é obrigatório")
     @ManyToOne
