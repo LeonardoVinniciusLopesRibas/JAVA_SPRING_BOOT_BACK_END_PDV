@@ -28,7 +28,7 @@ public class Produto {
     private String descricao;
 
     @NotNull(message = "VALOR UNITÁRIO é obrigatório")
-    @DecimalMin(value = "0.0", message = "VALOR UNITÁRIO deve ser no mínimo 0.0")
+    @DecimalMin(value = "0.01", message = "VALOR UNITÁRIO deve ser no mínimo 0.01")
     @Column(name = "valor_unitario")
     private double valor_unitario;
 
