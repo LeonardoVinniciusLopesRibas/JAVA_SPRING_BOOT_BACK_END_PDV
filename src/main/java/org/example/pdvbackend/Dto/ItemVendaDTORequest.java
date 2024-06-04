@@ -25,7 +25,7 @@ public class ItemVendaDTORequest {
     private double quantidade;
 
     @NotNull(message = "PREÇO UNITÁRIO é obrigatório")
-    @DecimalMin(value = "0.0", message = "PREÇO UNITÁRIO deve ser no mínimo 0.0")
+    @DecimalMin(value = "0.01", message = "PREÇO UNITÁRIO deve ser no mínimo 0.01")
     private double precoUnitario;
 
 }
