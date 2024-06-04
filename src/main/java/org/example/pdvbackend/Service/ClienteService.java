@@ -2,8 +2,8 @@ package org.example.pdvbackend.Service;
 
 import org.example.pdvbackend.Model.Cliente;
 import org.example.pdvbackend.Repository.ClienteRepository;
-import org.example.pdvbackend.Repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,12 +16,14 @@ public class ClienteService {
     private ClienteRepository clienteRepository;
 
     public List<Cliente> getTudo() {
-        return clienteRepository.findAll();
+        Sort sort = Sort.by(Sort.Direction.ASC, "nome");
+        return clienteRepository.findAll(sort);
     }
 
     public Cliente getById(Long id) {
         Optional<Cliente> optionalCliente = clienteRepository.findById(id);
         return optionalCliente.orElse(null);
+
     }
 
     public Cliente post(Cliente cliente){

@@ -16,7 +16,7 @@ public class ProdutoService {
     private ProdutoRepository produtoRepository;
 
     public List<Produto> getTudo() {
-        Sort sort = Sort.by(Sort.Direction.DESC, "descricao");
+        Sort sort = Sort.by(Sort.Direction.ASC, "descricao");
         return produtoRepository.findAll(sort);
 
     }
