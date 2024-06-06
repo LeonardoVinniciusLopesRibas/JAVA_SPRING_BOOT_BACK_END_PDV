@@ -8,6 +8,8 @@ import org.example.pdvbackend.Dto.VendaDTORequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,15 +22,20 @@ public class UtilController {
     @Operation(summary = "Calcular o valor total de um produto", description = "Calcula o valor total de um produto com base na quantidade e no preço unitário")
     @PostMapping("/calcular")
     public ResponseEntity<Double> calcularValorTotal(@RequestBody @Valid ItemVendaDTORequest itemVendaDTO){
-        double valorTotal = itemVendaDTO.getQuantidade() * itemVendaDTO.getPrecoUnitario();
-        return ResponseEntity.ok(valorTotal);
+        BigDecimal quantidade = BigDecimal.valueOf(itemVendaDTO.getQuantidade());
+        BigDecimal precoUnitario = BigDecimal.valueOf(itemVendaDTO.getPrecoUnitario());
+        BigDecimal valorTotal = quantidade.multiply(precoUnitario).setScale(2, RoundingMode.HALF_UP);
+        return ResponseEntity.ok(valorTotal.doubleValue());
     }
 
     @Operation(summary = "Calcular valor total da venda", description = "Calcula o valor total da venda")
     @PostMapping("/calcular/tudo")
     public ResponseEntity<Double> calcularValorTotalTodo(@RequestBody @Valid VendaDTORequest vendaDTORequest){
-        double soma = vendaDTORequest.getValorTotalVenda().stream().mapToDouble(Double::doubleValue).sum();
-        return ResponseEntity.ok(soma);
+        BigDecimal soma = vendaDTORequest.getValorTotalVenda().stream()
+                .map(BigDecimal::valueOf)
+                .reduce(BigDecimal.ZERO, BigDecimal::add)
+                .setScale(2, RoundingMode.HALF_UP);
+        return ResponseEntity.ok(soma.doubleValue());
     }
 
 }
